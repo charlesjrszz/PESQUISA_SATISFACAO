@@ -1,4 +1,4 @@
-var MyWidget = SuperWidget.extend({
+var WgtPesquisaSatisfacao = SuperWidget.extend({
     //variáveis da widget
     variavelNumerica: null,
     variavelCaracter: null,
@@ -19,4 +19,3 @@ var MyWidget = SuperWidget.extend({
     }
 
 });
-

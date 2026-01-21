@@ -92,12 +92,26 @@ function iniciarProcessoViaAPI() {
         headers: {
             "Authorization": headers.Authorization
         },
+        
         success: function(response) {
-            FLUIGC.toast({ title: 'Sucesso!', message: 'Avaliação enviada com sucesso!', type: 'success' });
-            setTimeout(function() { 
-                window.location.reload(); 
-            }, 2000);
+            // A API devolve o ID da solicitação criada neste campo
+            var numSolicitacao = response.processInstanceId; 
+            
+            // Exibe uma mensagem estilo padrão do Fluig
+            FLUIGC.message.alert({
+                message: '<h3>Solicitação iniciada com sucesso!</h3><br>Número da solicitação: <b>' + numSolicitacao + '</b>',
+                title: 'Sucesso',
+                label: 'Fechar'
+            }, function(el, ev) {
+                // O que acontece ao clicar em fechar:
+                // Opção A: Apenas recarregar a tela (Para lançar nova pesquisa)
+                window.location.reload();
+                
+                // Opção B: Redirecionar para ver a solicitação (Se quiser, descomente a linha abaixo e comente a de cima)
+                // window.location.href = "/portal/p/" + WCMAPI.getTenantCode() + "/pageworkflowview?processInstanceId=" + numSolicitacao;
+            });
         },
+
         error: function(xhr, status, error) {
             console.error("Erro API:", xhr);
             var erroMsg = "Erro desconhecido.";
