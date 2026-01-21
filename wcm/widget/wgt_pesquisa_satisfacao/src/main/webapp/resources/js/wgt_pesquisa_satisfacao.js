@@ -21,15 +21,16 @@ var MyWidget = SuperWidget.extend({
         successModal = $('#success-modal');
         errorModal = $('#error-modal');
 
-        // Inicializa OAuth (Requer libs CryptoJS e OAuth carregadas no HTML)
+        // Inicializa OAuth (Requer libs sha256 e OAuth carregadas no HTML)
         oauth = OAuth({
             consumer: {
                 'key': 'getTeste',
                 'secret': 'getTeste'
             },
-            signature_method: 'HMAC-SHA1',
-            hash_function(base_string, key) {
-                return CryptoJS.HmacSHA1(base_string, key).toString(CryptoJS.enc.Base64)
+            signature_method: 'HMAC-SHA256',
+            hash_function: function (base_string, key) {
+                var hashHex = sha256.hmac(key, base_string);
+                return hexToBase64(hashHex);
             }
         });  
     },
@@ -99,6 +100,18 @@ function alertError(campo) {
         message: 'O campo ' + campo + ' é obrigatório',
         type: 'danger'
     });
+}
+
+function selectRating(valor, element) {
+    $(".rating-item").removeClass("selected");
+    $(element).addClass("selected");
+    $("#avaliacao_valor").val(valor);
+}
+
+function hexToBase64(hexstring) {
+    return btoa(hexstring.match(/\w{2}/g).map(function (a) {
+        return String.fromCharCode(parseInt(a, 16));
+    }).join(""));
 }
 
 function startProcesAsync() {

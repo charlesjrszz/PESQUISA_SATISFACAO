@@ -1,6 +1,7 @@
 <div id="WgtPesquisaSatisfacao_${instanceId}" class="super-widget wcm-widget-class fluig-style-guide" data-params="MyWidget.instance()">
 
     <script type="text/javascript" src="/wgt_pesquisa_satisfacao/resources/js/oauth-1.0a.js?v=200"></script>
+    <script type="text/javascript" src="/wgt_pesquisa_satisfacao/resources/js/sha256.min.js?v=200"></script>
 
     <style>
         /* Container Principal */
